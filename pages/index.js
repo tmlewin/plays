@@ -18,7 +18,7 @@ export async function getStaticProps() {
 
 export default function Home({ todos }) {
 
-  // Thgis was atest showing the draw backs of not using server side rendering. There is a rendering penalty in terms of speed. Now i would show u how to use the ssr feature of nextjs to elimante thgis perf bottleneck entirely and make it super fast.
+  // This was a test showing the draw backs of not using server side rendering. There is a rendering penalty in terms of speed. Now i would show u how to use the ssr feature of nextjs to eliminate  this perf bottleneck entirely and make it super fast.
 // const [todos, setTodos] = useState([]);
 
 // useEffect(() => {
