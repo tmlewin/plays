@@ -1,23 +1,38 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { useState,useEffect } from 'react'
+// import { useState,useEffect } from 'react'
 
-export default function Home() {
-const [todos, setTodos] = useState([]);
 
-useEffect(() => {
-  setTimeout(async() => {
-    const fetchData = async () => {
-      const result = await fetch('https://jsonplaceholder.typicode.com/todos');
-        const data = await result.json();
-        console.log(data);
-        setTodos(data);
-      };
-      fetchData();
-  }, 3000); 
+export async function getStaticProps() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/todos')
+  const data = await res.json()
+
+  return {
+    props: {
+      todos: data
+      
+    },
+  }
+}
+
+export default function Home({ todos }) {
+
+  // Thgis was atest showing the draw backs of not using server side rendering. There is a rendering penalty in terms of speed. Now i would show u how to use the ssr feature of nextjs to elimante thgis perf bottleneck entirely and make it super fast.
+// const [todos, setTodos] = useState([]);
+
+// useEffect(() => {
+//   setTimeout(async() => {
+//     const fetchData = async () => {
+//       const result = await fetch('https://jsonplaceholder.typicode.com/todos');
+//         const data = await result.json();
+//         console.log(data);
+//         setTodos(data);
+//       };
+//       fetchData();
+//   }, 3000); 
   
-}, []);
+// }, []);
 
   return (
     <div className={styles.container}>
@@ -30,10 +45,10 @@ useEffect(() => {
       <main className={styles.main}>
        {/* body of test code written here  */}
 
-       {todos.length === 0 ? (
+       {todos?.length === 0 ? (
          <div>Loading...</div>
         ) : (
-          todos.map(todo => (
+          todos?.map(todo => (
             <div key={todo.id}>
               <p>{todo.id}  : {todo.title}</p>
             </div>
